@@ -88,6 +88,7 @@ CAMEL supports a wide range of models, including [OpenAI’s GPT series](https:/
 | **Qianfan**      | [supported models](https://cloud.baidu.com/doc/qianfan/s/rmh4stp0j) |
 | **AIHubMix**     | [supported models](https://aihubmix.com/) |
 | **AtlasCloud**   | openai/gpt-oss-120b, zai-org/glm-4-7 |
+| **LLMTR**        | minimax/minimax-m3.1-flash, [vendor/model IDs](https://llmtr.com/) |
 
 ## How to Use Models via API Calls
 
@@ -428,6 +429,51 @@ Integrate your favorite models into CAMEL-AI with straightforward Python calls. 
   ```
 
   **Available Models:** View the full list of models available through OpenRouter at [openrouter.ai/models](https://openrouter.ai/models).
+
+  </Tab>
+
+  <Tab title="LLMTR">
+  Access models through [LLMTR](https://llmtr.com/)'s OpenAI-compatible gateway.
+
+  **Setup:** Set your LLMTR API key as an environment variable:
+  ```bash
+  export LLMTR_API_KEY="your-api-key-here"
+  ```
+
+  Get a key at https://llmtr.com/dashboard/keys. Model IDs are namespaced
+  `vendor/model` values such as `minimax/minimax-m3.1-flash`. IDs under
+  `llmtr/` are hosted in Turkey; other vendor/model IDs route to their vendors.
+
+  ```python
+  from camel.models import ModelFactory
+  from camel.types import ModelPlatformType, ModelType
+  from camel.configs import LLMTRConfig
+  from camel.agents import ChatAgent
+
+  model = ModelFactory.create(
+      model_platform=ModelPlatformType.LLMTR,
+      model_type=ModelType.LLMTR_MINIMAX_M3_1_FLASH,
+      model_config_dict=LLMTRConfig(temperature=0.2, max_tokens=64).as_dict(),
+  )
+
+  agent = ChatAgent(
+      system_message="You are a helpful assistant.",
+      model=model
+  )
+
+  response = agent.step("Say hi to CAMEL AI community.")
+  print(response.msgs[0].content)
+  ```
+
+  You can also pass any LLMTR model ID as a string:
+
+  ```python
+  model = ModelFactory.create(
+      model_platform=ModelPlatformType.LLMTR,
+      model_type="minimax/minimax-m3.1-flash",
+      model_config_dict=LLMTRConfig(temperature=0.2).as_dict(),
+  )
+  ```
 
   </Tab>
 

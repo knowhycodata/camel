@@ -33,6 +33,7 @@ from .gemini_model import GeminiModel
 from .groq_model import GroqModel
 from .internlm_model import InternLMModel
 from .litellm_model import LiteLLMModel
+from .llmtr_model import LLMTRModel
 from .lmstudio_model import LMStudioModel
 from .minimax_model import MinimaxModel
 from .mistral_model import MistralModel
@@ -89,6 +90,7 @@ __all__ = [
     'GeminiModel',
     'GroqModel',
     'InternLMModel',
+    'LLMTRModel',
     'LMStudioModel',
     'LiteLLMModel',
     'MinimaxModel',

@@ -569,6 +569,9 @@ class ModelType(UnifiedModelType, Enum):
     ATLASCLOUD_GPT_OSS_120B = "openai/gpt-oss-120b"
     ATLASCLOUD_GLM_4_7 = "zai-org/glm-4.7"
 
+    # LLMTR models. IDs are vendor/model values routed through the gateway.
+    LLMTR_MINIMAX_M3_1_FLASH = "minimax/minimax-m3.1-flash"
+
     def __str__(self):
         return self.value
 
@@ -631,6 +634,7 @@ class ModelType(UnifiedModelType, Enum):
                 self.is_novita,
                 self.is_avian,
                 self.is_xai,
+                self.is_llmtr,
             ]
         )
 
@@ -1292,6 +1296,13 @@ class ModelType(UnifiedModelType, Enum):
         return self in {
             ModelType.ATLASCLOUD_GPT_OSS_120B,
             ModelType.ATLASCLOUD_GLM_4_7,
+        }
+
+    @property
+    def is_llmtr(self) -> bool:
+        r"""Returns whether this type of models is served by LLMTR."""
+        return self in {
+            ModelType.LLMTR_MINIMAX_M3_1_FLASH,
         }
 
     @property
@@ -2020,6 +2031,7 @@ class ModelPlatformType(Enum):
     AVIAN = "avian"
     ATLASCLOUD = "atlascloud"
     XAI = "xai"
+    LLMTR = "llmtr"
 
     @classmethod
     def from_name(cls, name):
@@ -2232,6 +2244,11 @@ class ModelPlatformType(Enum):
     def is_atlascloud(self) -> bool:
         r"""Returns whether this platform is AtlasCloud."""
         return self is ModelPlatformType.ATLASCLOUD
+
+    @property
+    def is_llmtr(self) -> bool:
+        r"""Returns whether this platform is LLMTR."""
+        return self is ModelPlatformType.LLMTR
 
 
 class AudioModelType(Enum):

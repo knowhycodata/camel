@@ -35,6 +35,7 @@ from camel.models.gemini_model import GeminiModel
 from camel.models.groq_model import GroqModel
 from camel.models.internlm_model import InternLMModel
 from camel.models.litellm_model import LiteLLMModel
+from camel.models.llmtr_model import LLMTRModel
 from camel.models.lmstudio_model import LMStudioModel
 from camel.models.minimax_model import MinimaxModel
 from camel.models.mistral_model import MistralModel
@@ -103,6 +104,7 @@ class ModelFactory:
         ModelPlatformType.LMSTUDIO: LMStudioModel,
         ModelPlatformType.MINIMAX: MinimaxModel,
         ModelPlatformType.OPENROUTER: OpenRouterModel,
+        ModelPlatformType.LLMTR: LLMTRModel,
         ModelPlatformType.ORCAROUTER: OrcaRouterModel,
         ModelPlatformType.ATLASCLOUD: AtlasCloudModel,
         ModelPlatformType.ZHIPU: ZhipuAIModel,
